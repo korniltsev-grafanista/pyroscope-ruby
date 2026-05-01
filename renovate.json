@@ -13,6 +13,17 @@
         "openssl/openssl"
       ],
       "enabled": true
+    },
+    {
+      "description": "Split openssl/openssl patch updates into their own stream so they survive when minor/major are disabled below.",
+      "matchPackageNames": ["openssl/openssl"],
+      "separateMinorPatch": true
+    },
+    {
+      "description": "Restrict openssl/openssl to patch-level updates only. Vulnerability alerts still bypass this and can produce minor/major bumps when needed for CVE fixes.",
+      "matchPackageNames": ["openssl/openssl"],
+      "matchUpdateTypes": ["major", "minor"],
+      "enabled": false
     }
   ],
   "customManagers": [
