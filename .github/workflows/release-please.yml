@@ -52,17 +52,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release upload "${{ needs.release-please.outputs.tag_name }}" pkg/*.gem --clobber
-      - uses: rubygems/configure-rubygems-credentials@762a4b77c3300434bb57c7ce80b20e36231927aa # v2.0.0
-      - uses: ruby/setup-ruby@0cb964fd540e0a24c900370abf38a33466142735 # v1.305.0
-        with:
-          ruby-version: '4.0.3'
-      - name: Publish to RubyGems
-        run: |
-          set -ex
-          for gem in pkg/*.gem; do
-            gem push "${gem}"
-            sleep 5
-          done
+#      - uses: rubygems/configure-rubygems-credentials@762a4b77c3300434bb57c7ce80b20e36231927aa # v2.0.0
+#      - uses: ruby/setup-ruby@0cb964fd540e0a24c900370abf38a33466142735 # v1.305.0
+#        with:
+#          ruby-version: '4.0.3'
+#      - name: Publish to RubyGems
+#        run: |
+#          set -ex
+#          for gem in pkg/*.gem; do
+#            gem push "${gem}"
+#            sleep 5
+#          done
 
   ruby-release-macos:
     permissions:
