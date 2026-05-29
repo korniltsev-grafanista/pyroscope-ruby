@@ -101,14 +101,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release upload "${{ needs.release-please.outputs.tag_name }}" pkg/*.gem --clobber
-      - uses: rubygems/configure-rubygems-credentials@762a4b77c3300434bb57c7ce80b20e36231927aa # v2.0.0
-      - name: Publish to RubyGems
-        run: |
-          set -ex
-          for gem in pkg/*.gem; do
-            gem push "${gem}"
-            sleep 5
-          done
+      - run: ls -ltr pkg/
+#      - uses: rubygems/configure-rubygems-credentials@762a4b77c3300434bb57c7ce80b20e36231927aa # v2.0.0
+#      - name: Publish to RubyGems
+#        run: |
+#          set -ex
+#          for gem in pkg/*.gem; do
+#            gem push "${gem}"
+#            sleep 5
+#          done
 
   ruby-release-source:
     permissions:
@@ -137,13 +138,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release upload "${{ needs.release-please.outputs.tag_name }}" pkg/*.gem --clobber
       - uses: rubygems/configure-rubygems-credentials@762a4b77c3300434bb57c7ce80b20e36231927aa # v2.0.0
-      - name: Publish to RubyGems
-        run: |
-          set -ex
-          for gem in pkg/*.gem; do
-            gem push "${gem}"
-            sleep 5
-          done
+      - run: ls -ltr pkg/
+#      - name: Publish to RubyGems
+#        run: |
+#          set -ex
+#          for gem in pkg/*.gem; do
+#            gem push "${gem}"
+#            sleep 5
+#          done
 
   publish-github-release:
     permissions:
