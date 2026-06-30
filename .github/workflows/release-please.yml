@@ -23,6 +23,7 @@ jobs:
         with:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+          token: ${{ github.token }}
 
   ruby-release-linux:
     permissions:
@@ -183,13 +184,8 @@ jobs:
     if: needs.release-please.outputs.pr != ''
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      id-token: write
+      contents: write
     steps:
-      - id: get-github-app-token
-        uses: grafana/shared-workflows/actions/create-github-app-token@580590a644e82e79bb2598bdaba0be245a14dda0 # create-github-app-token/v0.2.2
-        with:
-          github_app: pyroscope-development-app
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: release-please--branches--main--components--ruby
@@ -203,7 +199,7 @@ jobs:
       - name: Commit Cargo.lock through GitHub API
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
-          github-token: ${{ steps.get-github-app-token.outputs.token }}
+          github-token: ${{ github.token }}
           script: |
             const commitFilesThroughGitHubApi = require('./.github/scripts/commit-files-through-github-api.js');
             await commitFilesThroughGitHubApi({
